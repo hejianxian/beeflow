@@ -6,6 +6,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "bin": {
+    "bee": "bin/bee"
+  },
+  "preferGlobal": true,
   "repository": {
     "type": "git",
     "url": "git+https://github.com/hejianxian/beeflow.git"
@@ -16,6 +20,26 @@
     "webpack",
     "vue"
   ],
+  "dependencies": {
+    "async": "^2.0.0-rc.2",
+    "colors": "^1.1.2",
+    "commander": "^2.9.0",
+    "consolidate": "^0.14.0",
+    "download-git-repo": "^0.1.1",
+    "figlet": "^1.2.0",
+    "http-server": "^0.9.0",
+    "inquirer": "^0.12.0",
+    "metalsmith": "^2.1.0",
+    "ora": "^0.3.0",
+    "portfinder": "^1.0.7",
+    "read-metadata": "^1.0.0",
+    "request": "^2.67.0",
+    "rimraf": "^2.5.0",
+    "uid": "0.0.2",
+    "underscore": "^1.8.3",
+    "validate-npm-package-name": "^2.2.2"
+  },
+  "devDependencies": {},
   "author": "Hejx",
   "license": "MIT",
   "bugs": {

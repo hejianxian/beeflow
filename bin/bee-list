@@ -1,0 +1,42 @@
+#!/usr/bin/env node
+
+const request = require('request');
+const colors = require('colors');
+const ora = require('ora');
+
+/**
+ * Padding.
+ */
+
+console.log()
+process.on('exit', function () {
+  console.log()
+})
+
+/**
+ * List repos.
+ */
+
+const spinner = ora(` Please wait...`).start();
+request({
+  url: 'https://api.github.com/users/workplus-templates/repos',
+  headers: {
+    'User-Agent': 'workplus-cli'
+  }
+}, function (err, res, body) {
+  spinner.stop();
+  if (err) console.log(err)
+  var requestBody = JSON.parse(body)
+  if (Array.isArray(requestBody)) {
+    console.log('  Available official templates:')
+    console.log()
+    requestBody.forEach(function (repo) {
+      console.log(
+        '  ' + ('★').yellow +
+        '  ' + repo.name.blue +
+        ' - ' + repo.description)
+    })
+  } else {
+    console.error(requestBody.message)
+  }
+})

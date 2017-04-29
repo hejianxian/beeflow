@@ -1,0 +1,19 @@
+#!/usr/bin/env node
+
+let program = require('commander');
+let figlet = require('figlet');
+let colors = require('colors');
+
+if (process.argv.length < 3) {
+  console.log(figlet.textSync("beeflow").white);
+  console.log(' ==========================================='.white);
+}
+
+program
+  .version(require('../package').version)
+  .usage('<command> [options]')
+  .command('init <template> [project]', 'generate a new project from a template')
+  .command('list', 'list available official templates')
+  .command('dev', 'start a dev-server')
+  .command('build', 'build the production projects')
+  .parse(process.argv);

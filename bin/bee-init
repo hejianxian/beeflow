@@ -1,0 +1,96 @@
+#!/usr/bin/env node
+
+/**
+* prev: params parse
+*/
+
+const path = require('path');
+const program = require('commander');
+const download = require('download-git-repo');
+const ora = require('ora');
+const inquirer = require('inquirer');
+const exists = require('fs').existsSync;
+const colors = require('colors');
+const uid = require('uid');
+const generate = require('../lib/generate.js');
+const remove = require('rimraf').sync;
+
+/**
+ * Padding.
+ */
+
+console.log()
+process.on('exit', function () {
+  console.log()
+})
+
+/**
+* Usage
+*/
+program.usage('<template-name> [project-name]')
+
+/**
+* Help
+*/
+program.on('--help', function(){
+  console.log('  Examples:');
+  console.log('');
+  console.log('    # create a new project with an official template'.gray);
+  console.log('    $ bee init vue my-project');
+  console.log('');
+});
+
+/**
+ * Agrs params
+ */
+
+program.parse(process.argv);
+let args = program.args;
+
+if (args.length < 1) {
+  return program.help();
+}
+
+let template = args[0];
+let pathName = args[1];
+let inPlace = !pathName || pathName === '.';
+let destination = path.resolve(pathName || '.');
+let name = !pathName ? template : pathName;
+
+if (exists(destination)) {
+  inquirer.prompt([{
+    type: 'confirm',
+    message: inPlace
+      ? 'Generate project in current directory?'
+      : 'Target directory exists. Continue?',
+    name: 'ok'
+  }], (answers) => {
+    if (answers.ok) {
+      console.log('');
+      run()
+    }
+  })
+} else {
+  run()
+}
+
+function run () {
+  const spinner = ora(`Downloading ${template}`);
+
+  let tmp = '/tmp/template' + uid(); // unique backup
+  spinner.start();
+  download(`workplus-templates/${template}`, tmp, (err) => {
+    if (err) return console.log(err);
+    spinner.text = `Download ${template} successful`;
+    spinner.succeed();
+    console.log('\n  #Begin generate project \n'.gray);
+    process.on('exit', () => {
+      remove(tmp); //remove backup files
+    });
+
+    generate(name, tmp, destination, (err) => {
+      if (err) console.log(err);
+      console.log('');
+    });
+  });
+}
