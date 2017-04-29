@@ -1,0 +1,25 @@
+{
+  "name": "beeflow",
+  "version": "0.0.1",
+  "description": "A font-end build tool with webpack2.0!",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hejianxian/beeflow.git"
+  },
+  "keywords": [
+    "beeflow",
+    "build-tool",
+    "webpack",
+    "vue"
+  ],
+  "author": "Hejx",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hejianxian/beeflow/issues"
+  },
+  "homepage": "https://github.com/hejianxian/beeflow#readme"
+}
