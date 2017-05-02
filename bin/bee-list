@@ -19,9 +19,9 @@ process.on('exit', function () {
 
 const spinner = ora(` Please wait...`).start();
 request({
-  url: 'https://api.github.com/users/workplus-templates/repos',
+  url: 'https://api.github.com/users/beeflow-templates/repos',
   headers: {
-    'User-Agent': 'workplus-cli'
+    'User-Agent': 'beeflow'
   }
 }, function (err, res, body) {
   spinner.stop();
