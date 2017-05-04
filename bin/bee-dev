@@ -1,1 +1,46 @@
 #!/usr/bin/env node
+
+const path = require('path');
+const webpack = require('webpack');
+const express = require('express');
+
+const beeflow = require('../lib/beeflow');
+const webpackConfig = require('../webpack/webpack.default');
+
+
+// default port where dev server listens for incoming traffic
+const port = process.env.PORT || 8888;
+const host = process.env.HOST || 'http://localhost';
+
+const app = express();
+const compiler = webpack(webpackConfig);
+
+const devMiddleware = require('webpack-dev-middleware')(compiler, {
+  publicPath: webpackConfig.output.publicPath,
+  stats: {
+    colors: true,
+    chunks: false
+  }
+});
+
+var hotMiddleware = require('webpack-hot-middleware')(compiler);
+
+// handle fallback for HTML5 history API
+app.use(require('connect-history-api-fallback')())
+
+// serve webpack bundle output
+app.use(devMiddleware)
+
+// enable hot-reload and state-preserving
+// compilation error display
+app.use(hotMiddleware)
+
+app.use(express.static('/Users/hejianxian/Documents/hejx/测试例子/webpack-simple/'))
+
+module.exports = app.listen(port, function (err) {
+  if (err) {
+    console.log(err)
+    return
+  }
+  console.log('Listening at ' + host +':'+ port + '\n')
+})

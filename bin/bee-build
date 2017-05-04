@@ -1,1 +1,10 @@
-#!/usr/bin/env node
+#!/usr/bin/env node#!/usr/bin/env node
+
+const path = require('path');
+const webpack = require('webpack');
+
+const beeflow = require('../lib/beeflow');
+
+// beeflow.getBeeflowConfig();
+// beeflow.mergeConfig();
+// webpack start build

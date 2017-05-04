@@ -1,55 +1,57 @@
-const path = require('path');
-const webpack = require('webpack');
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+var path = require('path')
+var webpack = require('webpack')
+var HtmlWebpackPlugin = require('html-webpack-plugin')
 
-const rules = require('./rules');
-const config = require('./config');
-
-const webpackConfig = {
-  entry: {
-      app: ['./src/app/index.js']
-  },
+module.exports = {
+  entry: '/Users/hejianxian/Documents/hejx/测试例子/webpack-simple/src/main.js',
   output: {
-    path: path.resolve(__dirname, '../dist/'),
-    filename: 'app.js',
-    publicPath: '/'
+    path: '/Users/hejianxian/Documents/hejx/测试例子/webpack-simple/dist',
+    publicPath: '/dist/',
+    filename: 'build.js'
   },
   module: {
-    rules
-  },
-  devServer: config.dev,
-  plugins: [
-    new ExtractTextPlugin({
-      filename: 'style.css',
-      disable: false,
-      allChunks: true
-    }),
-    new CopyWebpackPlugin([
-      {from: './src/page', to: './page' }
-    ]),
-    new HtmlWebpackPlugin({
-      filename: 'index.html',
-      template: 'index.html',
-      hash: process.env.NODE_ENV === 'production'
-    }),
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoEmitOnErrorsPlugin()
-  ]
-};
-
-if (process.env.NODE_ENV === 'production') {
-  webpackConfig.plugins = webpackConfig.plugins.concat([
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('production')
-    }),
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false
+    rules: [
+      {
+        test: /\.vue$/,
+        loader: 'vue-loader',
+        options: {
+          loaders: {
+          }
+          // other vue-loader options go here
+        }
+      },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            
+          }
+        }
+      },
+      {
+        test: /\.(png|jpg|gif|svg)$/,
+        loader: 'file-loader',
+        options: {
+          name: '[name].[ext]?[hash]'
+        }
       }
+    ]
+  },
+  resolve: {
+    alias: {
+      'vue$': '/Users/hejianxian/Documents/hejx/github/beeflow/node_modules/vue/dist/vue.esm.js'
+    }
+  },
+  performance: {
+    hints: false
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      filename: '/Users/hejianxian/Documents/hejx/测试例子/webpack-simple/index.html',
+      template: '/Users/hejianxian/Documents/hejx/测试例子/webpack-simple/index.html',
+      inject: true
     })
-  ]);
+  ]
 }
-
-module.exports = webpackConfig;
