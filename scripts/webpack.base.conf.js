@@ -7,9 +7,14 @@ function resolve (dir) {
   return path.join(__dirname, '..', dir)
 }
 
+function fixpath(dir) {
+  const _dirname = `/Users/hejianxian/Documents/hejx/测试例子/wepack2`;
+  return path.join(_dirname, '.', dir);
+}
+
 module.exports = {
   entry: {
-    app: './src/main.js'
+    app: fixpath('./src/main.js')
   },
   output: {
     path: config.build.assetsRoot,
@@ -21,8 +26,8 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.vue', '.json'],
     alias: {
-      'vue$': 'vue/dist/vue.esm.js',
-      '@': resolve('src')
+      'vue$': '/Users/hejianxian/Documents/hejx/github/beeflow/node_modules/vue/dist/vue.esm.js',
+      '@': fixpath('./src')
     }
   },
   module: {
@@ -35,7 +40,7 @@ module.exports = {
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        include: [resolve('src'), resolve('test')]
+        include: [fixpath('src'), fixpath('test')]
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,

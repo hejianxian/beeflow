@@ -11,6 +11,7 @@ A front-end build tool with webpack.
 
 相关工具:
 
+* friendly-errors-webpack-plugin
 * http-proxy-middleware
 * connect-history-api-fallback
 * webpack-hot-middleware

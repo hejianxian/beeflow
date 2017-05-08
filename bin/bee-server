@@ -60,9 +60,13 @@ app.use(devMiddleware)
 // compilation error display
 app.use(hotMiddleware)
 
-// serve pure static assets
-var staticPath = path.posix.join(config.dev.assetsPublicPath, config.dev.assetsSubDirectory)
-app.use(staticPath, express.static('./static'))
+// // serve pure static assets
+// var staticPath = path.posix.join(config.dev.assetsPublicPath, config.dev.assetsSubDirectory)
+// app.use(staticPath, express.static('/Users/hejianxian/Documents/hejx/测试例子/wepack2/static'))
+
+app.use('/assets', express.static('/Users/hejianxian/Documents/hejx/测试例子/wepack2/src/assets'))
+
+app.use(express.static('/Users/hejianxian/Documents/hejx/测试例子/wepack2/'))
 
 var uri = 'http://localhost:' + port
 
