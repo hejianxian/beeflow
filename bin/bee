@@ -15,6 +15,5 @@ program
   .command('init <template> [project]', 'generate a new project from a template')
   .command('list', 'list available official templates')
   .command('dev', 'start a dev-server')
-  .command('server', 'start a dev-server')
   .command('build', 'build the production projects')
   .parse(process.argv);

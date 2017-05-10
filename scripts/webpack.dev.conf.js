@@ -6,15 +6,12 @@ var merge = require('webpack-merge')
 var baseWebpackConfig = require('./webpack.base.conf')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 var FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
-
-function fixpath(dir) {
-  const _dirname = `/Users/hejianxian/Documents/hejx/测试例子/wepack2`;
-  return path.join(_dirname, '.', dir);
-}
+var pwdPath = require('../lib/get-pwd')()
 
 // add hot-reload related code to entry chunks
+var devClientPath = path.join(__dirname, '../scripts/dev-client');
 Object.keys(baseWebpackConfig.entry).forEach(function (name) {
-  baseWebpackConfig.entry[name] = ['/Users/hejianxian/Documents/hejx/github/beeflow/scripts/dev-client'].concat(baseWebpackConfig.entry[name])
+  baseWebpackConfig.entry[name] = [devClientPath].concat(baseWebpackConfig.entry[name])
 })
 
 module.exports = merge(baseWebpackConfig, {
@@ -33,7 +30,7 @@ module.exports = merge(baseWebpackConfig, {
     // https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      template: fixpath('./index.html'),
+      template: path.join(pwdPath, './index.html'),
       inject: true
     }),
     new FriendlyErrorsPlugin()

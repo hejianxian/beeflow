@@ -2,14 +2,10 @@ var path = require('path')
 var utils = require('./utils')
 var config = require('../config')
 var vueLoaderConfig = require('./vue-loader.conf')
-
-function resolve (dir) {
-  return path.join(__dirname, '..', dir)
-}
+var pwdPath = require('../lib/get-pwd')()
 
 function fixpath(dir) {
-  const _dirname = `/Users/hejianxian/Documents/hejx/测试例子/wepack2`;
-  return path.join(_dirname, '.', dir);
+  return path.join(pwdPath, '.', dir);
 }
 
 module.exports = {
@@ -26,7 +22,7 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.vue', '.json'],
     alias: {
-      'vue$': '/Users/hejianxian/Documents/hejx/github/beeflow/node_modules/vue/dist/vue.esm.js',
+      'vue$': path.resolve(__dirname, '../node_modules/vue/dist/vue.esm.js'),
       '@': fixpath('./src')
     }
   },
