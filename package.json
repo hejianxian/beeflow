@@ -4,7 +4,7 @@
   "description": "A font-end build tool with webpack2.0!",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "ava"
   },
   "bin": {
     "bee": "bin/bee"
