@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
-require('../scripts/check-versions')()
+require('../webpack/scripts/check-versions')()
 
-var config = require('../config')
+var config = require('../webpack/config')
 if (!process.env.NODE_ENV) {
   process.env.NODE_ENV = JSON.parse(config.dev.env.NODE_ENV)
 }
@@ -12,7 +12,7 @@ var path = require('path')
 var express = require('express')
 var webpack = require('webpack')
 var proxyMiddleware = require('http-proxy-middleware')
-var webpackConfig = require('../scripts/webpack.dev.conf')
+var webpackConfig = require('../webpack/scripts/webpack.dev.conf')
 var pwdPath = require('../lib/get-pwd')();
 
 // default port where dev server listens for incoming traffic
