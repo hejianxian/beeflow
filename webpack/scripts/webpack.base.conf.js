@@ -2,7 +2,7 @@ var path = require('path')
 var utils = require('./utils')
 var config = require('../config')
 var vueLoaderConfig = require('./vue-loader.conf')
-var pwdPath = require('../lib/get-pwd')()
+var pwdPath = require('../../lib/get-pwd')()
 
 function fixpath(dir) {
   return path.join(pwdPath, '.', dir);

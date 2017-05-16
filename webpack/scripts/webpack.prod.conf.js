@@ -8,7 +8,7 @@ var CopyWebpackPlugin = require('copy-webpack-plugin')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
 var OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
-var pwdPath = require('../lib/get-pwd')()
+var pwdPath = require('../../lib/get-pwd')()
 
 function fixpath(dir) {
   return path.join(pwdPath, '.', dir);

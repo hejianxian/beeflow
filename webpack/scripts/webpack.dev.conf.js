@@ -6,7 +6,7 @@ var merge = require('webpack-merge')
 var baseWebpackConfig = require('./webpack.base.conf')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 var FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
-var pwdPath = require('../lib/get-pwd')()
+var pwdPath = require('../../lib/get-pwd')()
 
 // add hot-reload related code to entry chunks
 var devClientPath = path.join(__dirname, '../scripts/dev-client');
