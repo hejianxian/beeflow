@@ -4,8 +4,12 @@ var config = require('../config')
 var vueLoaderConfig = require('./vue-loader.conf')
 var pwdPath = require('../../lib/get-pwd')()
 
+var env = require('babel-preset-env');
+var stage2 = require('babel-preset-stage-2');
+var runtime = require('babel-plugin-transform-runtime');
+
 function fixpath(dir) {
-  return path.join(pwdPath, '.', dir);
+  return path.join(pwdPath, dir);
 }
 
 module.exports = {
@@ -13,16 +17,20 @@ module.exports = {
     app: fixpath('./src/main.js')
   },
   output: {
-    path: fixpath(config.build.assetsRoot),
+    path: fixpath('./dist'),
     filename: '[name].js',
     publicPath: process.env.NODE_ENV === 'production'
       ? config.build.assetsPublicPath
       : config.dev.assetsPublicPath
   },
   resolve: {
+    modules: [
+      'node_modules',
+      path.resolve(__dirname, '../../node_modules')
+    ],
     extensions: ['.js', '.vue', '.json'],
     alias: {
-      'vue$': path.resolve(__dirname, '../node_modules/vue/dist/vue.esm.js'),
+      'vue$': path.resolve(__dirname, '../../node_modules/vue/dist/vue.esm.js'),
       '@': fixpath('./src')
     }
   },
@@ -35,8 +43,21 @@ module.exports = {
       },
       {
         test: /\.js$/,
+        include: [fixpath('./src')],
         loader: 'babel-loader',
-        include: [fixpath('src'), fixpath('test')]
+        options: {
+          "babelrc": false,
+          "comments": false,
+          "presets": [
+            [require.resolve('babel-preset-env'), {
+              modules: false
+            }],
+            require.resolve('babel-preset-stage-2')
+          ],
+          "plugins": [
+            require.resolve('babel-plugin-transform-runtime')
+          ]
+        }
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,

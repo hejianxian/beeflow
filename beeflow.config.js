@@ -1,12 +1,14 @@
 module.exports = {
-  '@beeflow': {
+  beeflow: {
     api_server: 'http://172.16.1.97:8080',
-    path: '/main'
+    router_root: '/main'
   },
   input: '/src/main.js',
   output: '/dist',
   port: 8080,
+  autoOpenBrowser: true, // default true
   externals: [],
-  proxy: ['/api'],
-  proxyTarget: 'http://172.16.1.97:8081'
+  proxyTable: {
+    '/api': 'http://172.16.1.97:8989'
+  }
 };

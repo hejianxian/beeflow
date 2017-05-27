@@ -9,7 +9,7 @@ var FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 var pwdPath = require('../../lib/get-pwd')()
 
 // add hot-reload related code to entry chunks
-var devClientPath = path.join(__dirname, '../scripts/dev-client');
+var devClientPath = path.join(__dirname, './dev-client');
 Object.keys(baseWebpackConfig.entry).forEach(function (name) {
   baseWebpackConfig.entry[name] = [devClientPath].concat(baseWebpackConfig.entry[name])
 })

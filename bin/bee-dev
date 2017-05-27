@@ -16,18 +16,40 @@ var webpackConfig = require('../webpack/scripts/webpack.dev.conf')
 var pwdPath = require('../lib/get-pwd')();
 var beeflow = require('../lib/beeflow');
 
-beeflow.getConfig();
+var beeflowConfig = beeflow.getConfig();
 
 // default port where dev server listens for incoming traffic
-var port = process.env.PORT || config.dev.port
+var port = beeflowConfig.port || process.env.PORT || config.dev.port
 // automatically open browser, if not set will be false
-var autoOpenBrowser = !!config.dev.autoOpenBrowser
+var autoOpenBrowser = !!beeflowConfig.autoOpenBrowser
 // Define HTTP proxies to your custom API backend
 // https://github.com/chimurai/http-proxy-middleware
-var proxyTable = config.dev.proxyTable
+var proxyTable = beeflowConfig.proxyTable || config.dev.proxyTable
+
+// input / output / externals(beeflow) => webpackConfig
 
 var app = express()
 var compiler = webpack(webpackConfig)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 var devMiddleware = require('webpack-dev-middleware')(compiler, {
   publicPath: webpackConfig.output.publicPath,
