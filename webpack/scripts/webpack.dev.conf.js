@@ -33,6 +33,6 @@ module.exports = merge(baseWebpackConfig, {
       template: path.join(pwdPath, './index.html'),
       inject: true
     }),
-    new FriendlyErrorsPlugin()
+    // new FriendlyErrorsPlugin()
   ]
 })

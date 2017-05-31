@@ -24,16 +24,14 @@ module.exports = {
       : config.dev.assetsPublicPath
   },
   resolve: {
-    modules: [path.resolve(__dirname, '../../node_modules'), 'node_modules'],
+    modules: [path.resolve(__dirname, "../../node_modules")],
     extensions: ['.js', '.vue', '.json'],
     alias: {
       'vue$': path.resolve(__dirname, '../../node_modules/vue/dist/vue.esm.js'),
       '@': fixpath('./src')
     }
   },
-  resolveLoader: {
-    modules: [path.resolve(__dirname, '../../node_modules')]
-  },
+  context: path.resolve(__dirname, '../../'),
   module: {
     rules: [
       {
@@ -43,7 +41,7 @@ module.exports = {
       },
       {
         test: /\.js$/,
-        include: [path.resolve(__dirname, '../../demo/src')],
+        include: [fixpath('./src')],
         loader: 'babel-loader',
         options: {
           "babelrc": false,
